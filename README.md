@@ -1,2 +1,2 @@
-# AVR_Atmega32A_Drivers
-This repo contains the MCAL drivers and some HAL drivers 
+# AVR Atmega32A Drivers
+This repo contains the MCAL drivers and some HAL drivers for AVR Atmega32a microchip
