@@ -155,7 +155,8 @@ int main() {
 
     _delay_ms(1000);
     LCD8Bit_Send_Command(0x01);
-
+	//Servo opens (door)
+    ServoAngle(openangle);
 
     while(1){
     	//Sensor readings
@@ -166,8 +167,7 @@ int main() {
 
     	//Automatic (automatic response based on sensor reading)
 
-    	//Servo opens (door)
-        ServoAngle(openangle);
+
 
         //Check if the user wants Something
         ca = UART_Receive();
