@@ -48,7 +48,7 @@ int main() {
 	/******************   Enter the system   *******************/
 	/***********************************************************/
 	//Entering the username (username phase)
-	for(u8 j=1;j<4;j++){
+	/*for(u8 j=1;j<4;j++){
     LCD_Send_String("Enter your");
 	LCD_GOTOXY(0,1);
     LCD_Send_String("Username");
@@ -152,7 +152,7 @@ int main() {
 		    }
 		  }
 		}
-
+*/
     _delay_ms(1000);
     LCD8Bit_Send_Command(0x01);
 	//Servo opens (door)
@@ -200,7 +200,7 @@ int main() {
                   }
         if(strcmp(command,heavyload1)==0){
            LCD_Send_String("Heavy load ON");
-           /*DIO_SetPin_Value();*/
+           //DIO_SetPin_Value();
            _delay_ms(1000);
            LCD8Bit_Send_Command(0x01);
            }
