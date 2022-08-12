@@ -12,7 +12,7 @@
 
 /*Limits*/
 #define MAX_TEMP                    45
-#define MIN_LIGHT                   400
+#define MIN_LIGHT                   800
 #define openangle                   0
 #define closeangle                 -90
 
