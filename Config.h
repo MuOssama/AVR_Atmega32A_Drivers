@@ -14,7 +14,7 @@
 #define MAX_TEMP                    45
 #define MIN_LIGHT                   800
 #define openangle                   0
-#define closeangle                 -90
+#define closeangle                  -89
 
 
 //Emergency bottom
