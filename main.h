@@ -16,7 +16,12 @@
 /***********************************************************/
 char shutdoor[5] = "Shut",
 	 opendoor[5] = "Open",
-	 heavyload1[5] = "Ld01";
+	 heavyload1[5] = "HL1T",
+	 heavyload2[5] = "HL2T",
+	 heavyload3[5] = "HL3T",
+	 heavyload4[5] = "HL4T",
+	 heavyloadALLOFF[5] = "AOFF";
+
 
 struct user {
 	char username[5];
