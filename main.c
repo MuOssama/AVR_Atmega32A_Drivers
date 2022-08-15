@@ -36,6 +36,9 @@ int main() {
 
 
 	//Peripherals initialization
+	Globle_Intrrupt_Enable();
+	INT0_init();
+	INT1_init();
 	LCD8Bit_init();
 	UART_init();
 	ADC_init();
@@ -48,7 +51,7 @@ int main() {
 	/******************   Enter the system   *******************/
 	/***********************************************************/
 	//Entering the username (username phase)
-	/*for(u8 j=1;j<4;j++){
+	for(u8 j=1;j<4;j++){
     LCD_Send_String("Enter your");
 	LCD_GOTOXY(0,1);
     LCD_Send_String("Username");
@@ -152,11 +155,12 @@ int main() {
 		    }
 		  }
 		}
-*/
+
     _delay_ms(1000);
     LCD8Bit_Send_Command(0x01);
-	//Servo opens (door)
-    ServoAngle(openangle);
+
+    	//Servo opens (door)
+        ServoAngle(openangle);
 
     while(1){
     	//Sensor readings
@@ -199,8 +203,45 @@ int main() {
                   LCD8Bit_Send_Command(0x01);
                   }
         if(strcmp(command,heavyload1)==0){
-           LCD_Send_String("Heavy load ON");
-           //DIO_SetPin_Value();
+           LCD_Send_String("Heavy load 1");
+           LCD_Save_Character(0,1);
+           LCD_Send_String("Switched");
+           TOG_BIT(PORTB,2);
+           _delay_ms(1000);
+           LCD8Bit_Send_Command(0x01);
+           }
+        if(strcmp(command,heavyload2)==0){
+           LCD_Send_String("Heavy load 2");
+           LCD_Save_Character(0,1);
+           LCD_Send_String("Switched");
+           TOG_BIT(PORTD,6);
+           _delay_ms(1000);
+           LCD8Bit_Send_Command(0x01);
+           }
+        if(strcmp(command,heavyload3)==0){
+           LCD_Send_String("Heavy load 3");
+           LCD_Save_Character(0,1);
+           LCD_Send_String("Switched");
+           TOG_BIT(PORTB,7);
+           _delay_ms(1000);
+           LCD8Bit_Send_Command(0x01);
+           }
+        if(strcmp(command,heavyload4)==0){
+           LCD_Send_String("Heavy load");
+           LCD_Save_Character(0,1);
+           LCD_Send_String("Switched");
+           TOG_BIT(PORTD,4);
+           _delay_ms(1000);
+           LCD8Bit_Send_Command(0x01);
+           }
+        if(strcmp(command,heavyloadALLOFF)==0){
+           LCD_Send_String("Heavy loads");
+           LCD_Save_Character(0,1);
+           LCD_Send_String("are OFF");
+           CLR_BIT(PORTB,2);
+           CLR_BIT(PORTD,6);
+           CLR_BIT(PORTB,7);
+           CLR_BIT(PORTD,4);
            _delay_ms(1000);
            LCD8Bit_Send_Command(0x01);
            }
@@ -242,16 +283,14 @@ int main() {
     	/***********************************************************/
         LCD_Send_String("Temperature:");
 	    LCD_Send_Int(lm35_reading);
-	    _delay_ms(1000);
-	    LCD8Bit_Send_Command(0x01);
-        LCD_Send_String("Resistor:");
+	    LCD_GOTOXY(0,1);
+        LCD_Send_String("Fan Speed:");
 	    LCD_Send_Int(potentiometer_reading);
 	    _delay_ms(1000);
 	    LCD8Bit_Send_Command(0x01);
         LCD_Send_String("LDR:");
 	    LCD_Send_Int(photoresistor_reading);
-	    _delay_ms(1000);
-	    LCD8Bit_Send_Command(0x01);
+	    LCD_GOTOXY(0,1);
         LCD_Send_String("Infrared:");
 	    LCD_Send_Int(infrared_reading);
 	    _delay_ms(1000);
@@ -263,7 +302,7 @@ int main() {
   }
 
 //Emergency Fire Bottom on Interrupt 0
-void __vector_1(void) __attribute__((signal));
+void __vector_1 (void) __attribute__((signal));
 void __vector_1(void){
 	DIO_SetPin_Value(EmergencyLEDPORT,EmergencyLEDPIN,HIGH);
 	BuzzerON();
@@ -271,20 +310,13 @@ void __vector_1(void){
 
 }
 //Emergency Stop Bottom on Interrupt 1
-void __vector_2(void) __attribute__((signal));
-void __vector_2(void){
+void __vector_2 (void) __attribute__((signal));
+void __vector_2 (void){
 	DIO_SetPin_Value(EmergencyLEDPORT,EmergencyLEDPIN,LOW);
 	BuzzerOFF();
 
 
 }
-void __vector_13(void) __attribute__((signal));
-void __vector_13(void) {
-
-}
-
-
-
 
 void BluetoothRead(char *array){
 	    u8 i = 0;
